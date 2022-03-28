@@ -1,0 +1,17 @@
+apiVersion: audit.k8s.io/v1 # This is required.
+kind: Policy
+rules:
+  # Don't log requests to a configmap called "test-configmap"
+  - level: None
+    resources:
+      - group: ""
+        resources: ["configmaps"]
+        resourceNames: ["test-configmap"]
+
+  # Don't log watch requests by the "system:kube-proxy" on endpoints or services
+  - level: None
+    users: ["system:kube-proxy"]
+    verbs: ["watch"]
+    resources:
+      - group: "" # core API group
+        resources: ["endpoints", "services"]

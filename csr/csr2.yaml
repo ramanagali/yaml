@@ -1,0 +1,12 @@
+apiVersion: certificates.k8s.io/v1
+kind: CertificateSigningRequest
+metadata:
+  name: dev-csr
+spec:
+  groups:
+    - system:authenticated
+  request: $(cat venkat.csr | base64 | tr -d '\n')
+  signerName: kubernetes.io/kube-apiserver-client
+  expirationSeconds: 86400 # one day
+  usages:
+    - client auth

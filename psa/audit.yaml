@@ -1,0 +1,23 @@
+apiVersion: audit.k8s.io/v1
+kind: Policy
+omitStages:
+  - "RequestReceived"
+rules:
+  - level: Request
+    resources:
+      - group: "" # core API group
+        resources: ["pods"]
+    namespaces: ["dev"]
+  - level: RequestResponse
+    resources:
+      - group: "" # core API group
+        resources: ["pods"]
+      - group: "apps"
+        resources: ["deployments"]
+    namespaces: ["dev"]
+    verbs: ["create", "update"]
+  - level: Metadata
+    resources:
+      - group: ""
+        resources: ["pods/log", "pods/status"]
+    namespaces: ["dev"]

@@ -1,0 +1,29 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: non-legitimate-deploy
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: non-legitimate-deploy
+  template:
+    metadata:
+      labels:
+        app: non-legitimate-deploy
+    spec:
+      hostIPC: true
+      hostNetwork: true
+      hostPID: true
+      containers:
+        - name: nginx
+          image: nginx:latest
+          ports:
+            - containerPort: 80
+          securityContext:
+            privileged: true
+            runAsUser: 0
+            allowPrivilegeEscalation: true
+            readOnlyRootFilesystem: true
+            capabilities:
+              add: ["CAP_SYS_BOOT"]

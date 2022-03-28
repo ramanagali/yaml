@@ -1,0 +1,39 @@
+{
+    "kind": "Event",
+    "apiVersion": "audit.k8s.io/v1",
+    "level": "Metadata",
+    "auditID": "880f87ea-efb8-439c-a99c-6c91e08c58bf",
+    "stage": "RequestReceived",
+    "requestURI": "/api/v1/namespaces/dev/pods/web/status",
+    "verb": "patch",
+    "user": {
+        "username": "system:serviceaccount:kube-system:calico-node",
+        "uid": "ef81645f-9c73-40b1-b910-4b4eb501e36d",
+        "groups": [
+            "system:serviceaccounts",
+            "system:serviceaccounts:kube-system",
+            "system:authenticated"
+        ],
+        "extra": {
+            "authentication.kubernetes.io/pod-name": [
+                "calico-node-bjlg7"
+            ],
+            "authentication.kubernetes.io/pod-uid": [
+                "07838dd3-6273-4b8e-bbff-6358ca0276f0"
+            ]
+        }
+    },
+    "sourceIPs": [
+        "192.168.56.11"
+    ],
+    "userAgent": "calico/v0.0.0 (linux/amd64) kubernetes/$Format",
+    "objectRef": {
+        "resource": "pods",
+        "namespace": "dev",
+        "name": "web",
+        "apiVersion": "v1",
+        "subresource": "status"
+    },
+    "requestReceivedTimestamp": "2022-02-15T06:26:27.220658Z",
+    "stageTimestamp": "2022-02-15T06:26:27.220658Z"
+}

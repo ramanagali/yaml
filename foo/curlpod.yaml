@@ -1,0 +1,28 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: curlpod
+spec:
+  selector:
+    matchLabels:
+      app: curlpod
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: curlpod
+    spec:
+      volumes:
+        - name: secret-volume
+          secret:
+            secretName: foo-secret
+      containers:
+        - name: curlpod
+          command:
+            - sh
+            - -c
+            - while true; do sleep 2h; done
+          image: radial/busyboxplus:curl
+          volumeMounts:
+            - mountPath: /etc/foo/ssl
+              name: secret-volume

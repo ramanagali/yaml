@@ -1,0 +1,12 @@
+apiVersion: audit.k8s.io/v1 # This is required.
+kind: Policy
+rules:
+  # Log the request body of configmap changes in kube-system.
+  - level: Request
+    verbs: ["get", "create", "update", "watch", "delete", "list"]
+    resources:
+      - group: "" # core API group
+        resources: ["configmaps"]
+    # This rule only applies to resources in the "kube-system" namespace.
+    # The empty string "" can be used to select non-namespaced resources.
+    namespaces: ["kube-system"]

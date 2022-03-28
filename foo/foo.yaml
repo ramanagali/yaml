@@ -1,0 +1,48 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: foo
+spec:
+  selector:
+    matchLabels:
+      app: foo
+  template:
+    metadata:
+      labels:
+        app: foo
+    spec:
+      containers:
+        - name: foo
+          imagePullPolicy: Always
+          image: hashicorp/http-echo
+          args: ["--text=<h1>Foo</h1>"]
+          ports:
+            - containerPort: 5678
+              hostPort: 443
+          volumeMounts:
+            - mountPath: /etc/foo/ssl
+              name: secret-volume
+      volumes:
+        - name: secret-volume
+          secret:
+            secretName: foo-secret
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: foo-svc-https
+  labels:
+    run: foo-svc-https
+spec:
+  type: ClusterIP
+  ports:
+    # - port: 8080
+    #   targetPort: 5678
+    #   protocol: TCP
+    #   name: http
+    - port: 443
+      targetPort: 5678
+      protocol: TCP
+      name: https
+  selector:
+    app: foo

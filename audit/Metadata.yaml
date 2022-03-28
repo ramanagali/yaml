@@ -1,0 +1,21 @@
+apiVersion: audit.k8s.io/v1 # This is required.
+kind: Policy
+rules:
+  # Log all ConfigMap and Secret changes at the Metadata level.
+  - level: Metadata
+    resources:
+      - group: ""
+        resources: ["secrets", "configmaps"]
+    namespaces: ["prod"]
+
+  # Log "pods/log", "pods/status" at Metadata level
+  - level: Metadata
+    resources:
+      - group: ""
+        resources: ["pods/log", "pods/status"]
+
+  # Log configmap and secret changes in all other namespaces at the Metadata level.
+  - level: Metadata
+    resources:
+      - group: "" # core API group
+        resources: ["secrets", "configmaps", "serviceaccounts"]
