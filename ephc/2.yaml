@@ -1,0 +1,19 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: web
+  annotations:
+    kubectl.kubernetes.io/default-container: c2
+spec:
+  shareProcessNamespace: true
+  containers:
+    - name: c1
+      image: nginx
+    - name: c2
+      image: busybox:1.28
+      securityContext:
+        capabilities:
+          add:
+            - SYS_PTRACE
+      stdin: true
+      tty: true
