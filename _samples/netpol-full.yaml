@@ -1,27 +1,36 @@
 apiVersion: networking.k8s.io/v1
 kind: NetworkPolicy
 metadata:
-  name: allow-all-from-fronend
+  name: test-network-policy
   namespace: default
 spec:
   podSelector:
     matchLabels:
-      role: frontend
+      role: db
   policyTypes:
     - Ingress
     - Egress
   ingress:
     - from:
         - ipBlock:
-            cidr: 0.0.0.0/0
-  egress:
-    - to:
+            cidr: 172.17.0.0/16
+            except:
+              - 172.17.1.0/24
         - namespaceSelector:
             matchLabels:
-              name: prod
-          podSelector:
+              project: myproject
+        - podSelector:
             matchLabels:
-              role: backend
+              role: frontend
       ports:
         - protocol: TCP
           port: 6379
+          endPort: 6381
+  egress:
+    - to:
+        - ipBlock:
+            cidr: 10.0.0.0/24
+      ports:
+        - protocol: TCP
+          port: 5978
+          endPort: 5980
