@@ -10,7 +10,7 @@ spec:
   - from:
     - podSelector:
         matchLabels:
-          run: test
+          run: test1
     ports:
       - protocol: TCP
         port: 8080

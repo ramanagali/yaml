@@ -1,0 +1,17 @@
+{
+    "Version": "2012-10-17",
+    "Statement": [
+        {
+            "Effect": "Allow",
+            "Principal": {
+                "Federated": "arn:aws:iam::308391242501:oidc-provider/oidc.eks.ap-southeast-1.amazonaws.com/id/33CC40E09D578A1BD11C935691F5B10E"
+            },
+            "Action": "sts:AssumeRoleWithWebIdentity",
+            "Condition": {
+                "StringEquals": {
+                    "oidc.eks.ap-southeast-1.amazonaws.com/id/33CC40E09D578A1BD11C935691F5B10E:sub": "system:serviceaccount:default:nginx-deployment-sa"
+                }
+            }
+        }
+    ]
+}
