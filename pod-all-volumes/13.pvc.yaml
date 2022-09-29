@@ -1,11 +1,24 @@
+apiVersion: storage.k8s.io/v1
+kind: StorageClass
+metadata:
+  name: standard
+provisioner: kubernetes.io/aws-ebs
+parameters:
+  type: gp2
+reclaimPolicy: Retain
+allowVolumeExpansion: true
+mountOptions:
+  - debug
+volumeBindingMode: Immediate
+---
 apiVersion: v1
 kind: PersistentVolume
 metadata:
   name: task-pv-volume
   labels:
-    type: local
+    type: standard
 spec:
-  storageClassName: manual
+  storageClassName: standard
   capacity:
     storage: 10Gi
   accessModes:
