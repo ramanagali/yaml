@@ -35,3 +35,16 @@ spec:
           - path: "annotations"
             fieldRef:
               fieldPath: metadata.annotations
+          - path: "podip"
+            fieldRef:
+              fieldPath: status.podIP
+          - path: "nodename"
+            fieldRef:
+              fieldPath: spec.nodeName
+          - path: "nodename"
+            resourceFieldRef:
+              fieldPath: requests.cpu
+          - path: "nodename"
+            resourceFieldRef:
+              fieldPath: requests.memory
+
