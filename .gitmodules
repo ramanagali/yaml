@@ -1,0 +1,3 @@
+[submodule "kubernets-vault-secret-csi-volume"]
+	path = kubernets-vault-secret-csi-volume
+	url = https://github.com/learnwithgvr/kubernets-vault-secret-csi-volume.git
