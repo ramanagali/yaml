@@ -1,0 +1,29 @@
+apiVersion: apiextensions.k8s.io/v1
+kind: CustomResourceDefinition
+metadata:
+  name: replicalimits.rules.example.com
+spec:
+  group: rules.example.com
+  names:
+    kind: ReplicaLimit
+    plural: replicalimits
+    singular: replicalimit
+    shortNames:
+      - rlt
+  scope: Namespaced
+  versions:
+    - name: v1
+      served: true
+      storage: true
+      schema:
+        # schema used for validation
+        openAPIV3Schema:
+          type: object
+          properties:
+            maxReplicas:
+              type: integer
+            status:
+              type: object
+              properties:
+                availableReplicas:
+                  type: integer

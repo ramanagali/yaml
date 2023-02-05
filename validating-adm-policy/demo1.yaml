@@ -1,0 +1,28 @@
+apiVersion: admissionregistration.k8s.io/v1alpha1
+kind: ValidatingAdmissionPolicy
+metadata:
+  name: "demo-policy.example.com"
+spec:
+  matchConstraints:
+    resourceRules:
+    - apiGroups:   ["apps"]
+      apiVersions: ["v1"]
+      operations:  ["*"]
+      resources:   ["deployments"]
+  validations:
+    - expression: "object.spec.replicas <= 3"
+      message: "All deployments should have at least 3 mandatory replicas"
+---
+apiVersion: admissionregistration.k8s.io/v1alpha1
+kind: ValidatingAdmissionPolicyBinding
+metadata:
+  name: "demo-binding-test.example.com"
+spec:
+  policyName: "demo-policy.example.com"
+  matchResources:
+    namespaceSelector:
+      matchExpressions:
+      - key: environment
+        operator: In
+        values:
+        - test
